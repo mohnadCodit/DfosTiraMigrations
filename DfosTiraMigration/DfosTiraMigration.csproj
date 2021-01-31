@@ -1,0 +1,568 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1303343E-5A78-4CC3-8804-3CEA4EF81A37}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DfosTiraMigration</RootNamespace>
+    <AssemblyName>DfosTiraMigration</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44343</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.5.0.0\lib\net461\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.7\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Abstractions.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Container.5.11.1\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.5.11.1\lib\net46\Unity.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AutoMapperWebProfile.cs" />
+    <Compile Include="Models\AwsModels\Address.cs" />
+    <Compile Include="Models\AwsModels\AllowedIP.cs" />
+    <Compile Include="Models\AwsModels\AwsDbContext.cs" />
+    <Compile Include="Models\AwsModels\Artworks.cs" />
+    <Compile Include="Models\AwsModels\ArtWorksResponseImage.cs" />
+    <Compile Include="Models\AwsModels\Bid.cs" />
+    <Compile Include="Models\AwsModels\BidItemValueShtansim.cs" />
+    <Compile Include="Models\AwsModels\BidMissionNote.cs" />
+    <Compile Include="Models\AwsModels\BoardColumns.cs" />
+    <Compile Include="Models\AwsModels\BoardMissions.cs" />
+    <Compile Include="Models\AwsModels\BoardModels\BoardPermission.cs" />
+    <Compile Include="Models\AwsModels\BoardModels\BoardUserPermission.cs" />
+    <Compile Include="Models\AwsModels\BoardRows.cs" />
+    <Compile Include="Models\AwsModels\Boards.cs" />
+    <Compile Include="Models\AwsModels\BoardUsers.cs" />
+    <Compile Include="Models\AwsModels\BusinessPartner\BusinessPartner.cs" />
+    <Compile Include="Models\AwsModels\BusinessPartner\BusinessPartnerContact.cs" />
+    <Compile Include="Models\AwsModels\Class1.cs" />
+    <Compile Include="Models\AwsModels\Client.cs" />
+    <Compile Include="Models\AwsModels\ClientType.cs" />
+    <Compile Include="Models\AwsModels\Contact.cs" />
+    <Compile Include="Models\AwsModels\DataTable\BoardMissionGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\ClientsGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\ClientsRaceGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\DataTableSettings.cs" />
+    <Compile Include="Models\AwsModels\DataTable\EmployeesGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\InstrucionsGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\LogsGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\OrderGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\OrderTrackingGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\OrderTrackingPaymentGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\PriceListsMachineGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\PriceListsPaperGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\ProfitsGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\ReportGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\SubProductGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\SubProductsParametersGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\UserGridSource.cs" />
+    <Compile Include="Models\AwsModels\DataTable\WorkDirectoryGridSource.cs" />
+    <Compile Include="Models\AwsModels\Employee.cs" />
+    <Compile Include="Models\AwsModels\FileObject.cs" />
+    <Compile Include="Models\AwsModels\FileUploader\UploadedFileObject.cs" />
+    <Compile Include="Models\AwsModels\Filters\ORMissionsFilter.cs" />
+    <Compile Include="Models\AwsModels\ForgetPassword.cs" />
+    <Compile Include="Models\AwsModels\ForgotPassword.cs" />
+    <Compile Include="Models\AwsModels\GeneralSetting.cs" />
+    <Compile Include="Models\AwsModels\GroupArtworks.cs" />
+    <Compile Include="Models\AwsModels\Helper\OOParametersDetails.cs" />
+    <Compile Include="Models\AwsModels\Helper\SpecialColorHelper.cs" />
+    <Compile Include="Models\AwsModels\Image.cs" />
+    <Compile Include="Models\AwsModels\Instruction.cs" />
+    <Compile Include="Models\AwsModels\InstructionsGroup.cs" />
+    <Compile Include="Models\AwsModels\Logs\BoardMissionsLog.cs" />
+    <Compile Include="Models\AwsModels\Logs\GeneralUsersLog.cs" />
+    <Compile Include="Models\AwsModels\Logs\LogType.cs" />
+    <Compile Include="Models\AwsModels\Logs\OrdersLog.cs" />
+    <Compile Include="Models\AwsModels\Logs\QuotesLog.cs" />
+    <Compile Include="Models\AwsModels\Machines\Machine.cs" />
+    <Compile Include="Models\AwsModels\Machines\MachineSheetsCost.cs" />
+    <Compile Include="Models\AwsModels\Machines\PriceListsMachine.cs" />
+    <Compile Include="Models\AwsModels\Machines\SheetsType.cs" />
+    <Compile Include="Models\AwsModels\MissionAttachments.cs" />
+    <Compile Include="Models\AwsModels\OO\OOMinimumProfit.cs" />
+    <Compile Include="Models\AwsModels\OO\OOMinimumProfitsGroup.cs" />
+    <Compile Include="Models\AwsModels\OO\OOPercentageProfit.cs" />
+    <Compile Include="Models\AwsModels\OO\OOPercentageProfitsGroup.cs" />
+    <Compile Include="Models\AwsModels\OrderDeliveryStatus.cs" />
+    <Compile Include="Models\AwsModels\OrderFile.cs" />
+    <Compile Include="Models\AwsModels\OrderItemFile.cs" />
+    <Compile Include="Models\AwsModels\OrderItemFileImage.cs" />
+    <Compile Include="Models\AwsModels\Papers\Paper.cs" />
+    <Compile Include="Models\AwsModels\Papers\PriceListsPaper.cs" />
+    <Compile Include="Models\AwsModels\Papers\PriceListsPaperDetailsMachine.cs" />
+    <Compile Include="Models\AwsModels\Papers\PriceListsPapersDetail.cs" />
+    <Compile Include="Models\AwsModels\Permission.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\Analytic.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\BidItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\BooksItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\Cover.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\CuttingItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\DigitalItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\EnvelopesItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\GlassesItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\IntireColumn.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\ItemSpecialColor.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\NotepadItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\Order.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\OrderItem.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\OrderItemParametersStatus.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\PriceList.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\PriceListParameter.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\PriceListParametersBoard.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\PrintingItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\PrintingItemWork.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\ProductsItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\Quote.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\QuoteItem.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\QuoteItemParametersStatuses.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\Scodix.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\ScodixItemValue.cs" />
+    <Compile Include="Models\AwsModels\PriceLists\ShelfProductsItemValue.cs" />
+    <Compile Include="Models\AwsModels\Products\MainProduct.cs" />
+    <Compile Include="Models\AwsModels\Products\ProductsGroup.cs" />
+    <Compile Include="Models\AwsModels\Products\ProductsGroupsRelation.cs" />
+    <Compile Include="Models\AwsModels\Products\ProductsParameter.cs" />
+    <Compile Include="Models\AwsModels\Products\ProductsPrice.cs" />
+    <Compile Include="Models\AwsModels\Products\ProductsType.cs" />
+    <Compile Include="Models\AwsModels\Products\SubProduct.cs" />
+    <Compile Include="Models\AwsModels\Products\SubProductParameter.cs" />
+    <Compile Include="Models\AwsModels\Profits\MinimumProfit.cs" />
+    <Compile Include="Models\AwsModels\Profits\MinimumProfitsGroup.cs" />
+    <Compile Include="Models\AwsModels\Profits\PercentageProfit.cs" />
+    <Compile Include="Models\AwsModels\Profits\PercentageProfitsGroup.cs" />
+    <Compile Include="Models\AwsModels\QnapLoginModel.cs" />
+    <Compile Include="Models\AwsModels\QnapResponseModel.cs" />
+    <Compile Include="Models\AwsModels\QnapUploadFileModel.cs" />
+    <Compile Include="Models\AwsModels\QuoteItemFile.cs" />
+    <Compile Include="Models\AwsModels\QuotesStatus.cs" />
+    <Compile Include="Models\AwsModels\RelatedFile.cs" />
+    <Compile Include="Models\AwsModels\Report.cs" />
+    <Compile Include="Models\AwsModels\ReportsRelation.cs" />
+    <Compile Include="Models\AwsModels\Role.cs" />
+    <Compile Include="Models\AwsModels\RolesPermissionsRelationship.cs" />
+    <Compile Include="Models\AwsModels\SapB1\SapClient.cs" />
+    <Compile Include="Models\AwsModels\SapB1\SapOrder.cs" />
+    <Compile Include="Models\AwsModels\ScriptFileLastAccess.cs" />
+    <Compile Include="Models\AwsModels\Searches\ClientsSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\LogsSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\MachinesSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\OrderSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\ORMissionsSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\PapersSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\ProfitsSearch.cs" />
+    <Compile Include="Models\AwsModels\Searches\SubProductsSearch.cs" />
+    <Compile Include="Models\AwsModels\SearchModel.cs" />
+    <Compile Include="Models\AwsModels\Setting.cs" />
+    <Compile Include="Models\AwsModels\Shtansim.cs" />
+    <Compile Include="Models\AwsModels\ShtansShape.cs" />
+    <Compile Include="Models\AwsModels\SMS.cs" />
+    <Compile Include="Models\AwsModels\SMSTemplate.cs" />
+    <Compile Include="Models\AwsModels\Tracking\OrdersTracking.cs" />
+    <Compile Include="Models\AwsModels\Tracking\OrdersTrackingPayment.cs" />
+    <Compile Include="Models\AwsModels\User.cs" />
+    <Compile Include="Models\AwsModels\WorkDirectory.cs" />
+    <Compile Include="Models\AwsModels\WorkDirectoryGroup.cs" />
+    <Compile Include="Models\GoMakeModels\Address.cs" />
+    <Compile Include="Models\GoMakeModels\AllowedIP.cs" />
+    <Compile Include="Models\GoMakeModels\GoMakeDbContext.cs" />
+    <Compile Include="Models\GoMakeModels\Artworks.cs" />
+    <Compile Include="Models\GoMakeModels\ArtWorksResponseImage.cs" />
+    <Compile Include="Models\GoMakeModels\Bid.cs" />
+    <Compile Include="Models\GoMakeModels\BidItemValueShtansim.cs" />
+    <Compile Include="Models\GoMakeModels\BidMissionNote.cs" />
+    <Compile Include="Models\GoMakeModels\BoardColumns.cs" />
+    <Compile Include="Models\GoMakeModels\BoardMissions.cs" />
+    <Compile Include="Models\GoMakeModels\BoardModels\BoardUserPermission.cs" />
+    <Compile Include="Models\GoMakeModels\BoardRows.cs" />
+    <Compile Include="Models\GoMakeModels\Boards.cs" />
+    <Compile Include="Models\GoMakeModels\BoardUsers.cs" />
+    <Compile Include="Models\GoMakeModels\Class1.cs" />
+    <Compile Include="Models\GoMakeModels\Client.cs" />
+    <Compile Include="Models\GoMakeModels\ClientType.cs" />
+    <Compile Include="Models\GoMakeModels\Contact.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\BoardMissionGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\ClientsGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\ClientsRaceGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\DataTableSettings.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\EmployeesGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\InstrucionsGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\LogsGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\OrderGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\OrderTrackingGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\OrderTrackingPaymentGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\PriceListsMachineGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\PriceListsPaperGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\ProfitsGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\ReportGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\SubProductGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\SubProductsParametersGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\UserGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\DataTable\WorkDirectoryGridSource.cs" />
+    <Compile Include="Models\GoMakeModels\Employee.cs" />
+    <Compile Include="Models\GoMakeModels\FileObject.cs" />
+    <Compile Include="Models\GoMakeModels\FileUploadDTO.cs" />
+    <Compile Include="Models\GoMakeModels\FileUploader\UploadedFileObject.cs" />
+    <Compile Include="Models\GoMakeModels\Filters\ORMissionsFilter.cs" />
+    <Compile Include="Models\GoMakeModels\ForceLoginRequest.cs" />
+    <Compile Include="Models\GoMakeModels\ForgetPassword.cs" />
+    <Compile Include="Models\GoMakeModels\ForgotPassword.cs" />
+    <Compile Include="Models\GoMakeModels\Gomake_API\DTO\PrintHouseDTO.cs" />
+    <Compile Include="Models\GoMakeModels\Gomake_API\DTO\PrintHousePackageUsageDTO.cs" />
+    <Compile Include="Models\GoMakeModels\Gomake_API\PrintHouseFeatures.cs" />
+    <Compile Include="Models\GoMakeModels\GroupArtworks.cs" />
+    <Compile Include="Models\GoMakeModels\Helper\OOParametersDetails.cs" />
+    <Compile Include="Models\GoMakeModels\Helper\SpecialColorHelper.cs" />
+    <Compile Include="Models\GoMakeModels\Image.cs" />
+    <Compile Include="Models\GoMakeModels\Instruction.cs" />
+    <Compile Include="Models\GoMakeModels\InstructionsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\LoginSession.cs" />
+    <Compile Include="Models\GoMakeModels\Logs\BoardMissionsLog.cs" />
+    <Compile Include="Models\GoMakeModels\Logs\GeneralUsersLog.cs" />
+    <Compile Include="Models\GoMakeModels\Logs\OrdersLog.cs" />
+    <Compile Include="Models\GoMakeModels\Logs\QuotesLog.cs" />
+    <Compile Include="Models\GoMakeModels\Machines\Machine.cs" />
+    <Compile Include="Models\GoMakeModels\Machines\MachineSheetsCost.cs" />
+    <Compile Include="Models\GoMakeModels\Machines\PriceListsMachine.cs" />
+    <Compile Include="Models\GoMakeModels\Machines\SheetsType.cs" />
+    <Compile Include="Models\GoMakeModels\MailProvider.cs" />
+    <Compile Include="Models\GoMakeModels\MissionAttachments.cs" />
+    <Compile Include="Models\GoMakeModels\OO\OOMinimumProfit.cs" />
+    <Compile Include="Models\GoMakeModels\OO\OOMinimumProfitsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\OO\OOPercentageProfit.cs" />
+    <Compile Include="Models\GoMakeModels\OO\OOPercentageProfitsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\OrderFile.cs" />
+    <Compile Include="Models\GoMakeModels\OrderItemFile.cs" />
+    <Compile Include="Models\GoMakeModels\OrderItemFileImage.cs" />
+    <Compile Include="Models\GoMakeModels\Package.cs" />
+    <Compile Include="Models\GoMakeModels\Papers\Paper.cs" />
+    <Compile Include="Models\GoMakeModels\Papers\PriceListsPaper.cs" />
+    <Compile Include="Models\GoMakeModels\Papers\PriceListsPaperDetailsMachine.cs" />
+    <Compile Include="Models\GoMakeModels\Papers\PriceListsPapersDetail.cs" />
+    <Compile Include="Models\GoMakeModels\Permission.cs" />
+    <Compile Include="Models\GoMakeModels\PermissionsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\Analytic.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\BidItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\BooksItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\Cover.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\CuttingItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\DigitalItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\EnvelopesItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\GlassesItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\IgnoredPricing.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\IntireColumn.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\ItemSpecialColor.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\NotepadItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\Order.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\OrderItem.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\OrderItemParametersStatus.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\PriceList.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\PriceListParameter.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\PriceListParametersBoard.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\PrintingItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\PrintingItemWork.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\ProductsItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\Quote.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\QuoteItem.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\QuoteItemParametersStatuses.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\Scodix.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\ScodixItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PriceLists\ShelfProductsItemValue.cs" />
+    <Compile Include="Models\GoMakeModels\PrintHousePackageUsage.cs" />
+    <Compile Include="Models\GoMakeModels\Products\MainProduct.cs" />
+    <Compile Include="Models\GoMakeModels\Products\MainProductSupplier.cs" />
+    <Compile Include="Models\GoMakeModels\Products\ProductsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\Products\ProductsGroupsRelation.cs" />
+    <Compile Include="Models\GoMakeModels\Products\ProductsParameter.cs" />
+    <Compile Include="Models\GoMakeModels\Products\ProductsPrice.cs" />
+    <Compile Include="Models\GoMakeModels\Products\SubProduct.cs" />
+    <Compile Include="Models\GoMakeModels\Products\SubProductParameter.cs" />
+    <Compile Include="Models\GoMakeModels\Products\SubProductSupplier.cs" />
+    <Compile Include="Models\GoMakeModels\Profits\MinimumProfit.cs" />
+    <Compile Include="Models\GoMakeModels\Profits\MinimumProfitsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\Profits\PercentageProfit.cs" />
+    <Compile Include="Models\GoMakeModels\Profits\PercentageProfitsGroup.cs" />
+    <Compile Include="Models\GoMakeModels\QnapLoginModel.cs" />
+    <Compile Include="Models\GoMakeModels\QnapResponseModel.cs" />
+    <Compile Include="Models\GoMakeModels\QnapUploadFileModel.cs" />
+    <Compile Include="Models\GoMakeModels\QuoteItemFile.cs" />
+    <Compile Include="Models\GoMakeModels\RelatedFile.cs" />
+    <Compile Include="Models\GoMakeModels\Report.cs" />
+    <Compile Include="Models\GoMakeModels\ReportsRelation.cs" />
+    <Compile Include="Models\GoMakeModels\Role.cs" />
+    <Compile Include="Models\GoMakeModels\RolesPermissionsRelationship.cs" />
+    <Compile Include="Models\GoMakeModels\SapB1\SapClient.cs" />
+    <Compile Include="Models\GoMakeModels\SapB1\SapOrder.cs" />
+    <Compile Include="Models\GoMakeModels\ScriptFileLastAccess.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\ClientsSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\LogsSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\MachinesSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\OrderSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\ORMissionsSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\PapersSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\ProfitsSearch.cs" />
+    <Compile Include="Models\GoMakeModels\Searches\SubProductsSearch.cs" />
+    <Compile Include="Models\GoMakeModels\SearchModel.cs" />
+    <Compile Include="Models\GoMakeModels\Setting.cs" />
+    <Compile Include="Models\GoMakeModels\Shtansim.cs" />
+    <Compile Include="Models\GoMakeModels\SMS.cs" />
+    <Compile Include="Models\GoMakeModels\SMSTemplate.cs" />
+    <Compile Include="Models\GoMakeModels\Tracking\OrdersTracking.cs" />
+    <Compile Include="Models\GoMakeModels\Tracking\OrdersTrackingPayment.cs" />
+    <Compile Include="Models\GoMakeModels\User.cs" />
+    <Compile Include="Models\GoMakeModels\WorkDirectory.cs" />
+    <Compile Include="Models\GoMakeModels\WorkDirectoryGroup.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55802</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44343/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
