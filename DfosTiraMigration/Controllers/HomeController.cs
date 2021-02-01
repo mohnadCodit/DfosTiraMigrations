@@ -23,7 +23,8 @@ namespace DfosTiraMigration.Controllers
         private Logger _logger = NLog.LogManager.GetCurrentClassLogger();
         public  ActionResult Index()
         {
-
+            Thread thread = new Thread(migrate);
+            thread.Start();
             migrate();
 
             return View();
@@ -37,10 +38,9 @@ namespace DfosTiraMigration.Controllers
             var _context = new GoMakeDbContext();
 
             IMapper mapper = ConfigMapper().CreateMapper();
-          //  var rrrr = _oldContext.BidItemValueShtansim.Where(x => x.ID == 14).FirstOrDefault();
-            //var ttt = mapper.Map<Models.GoMakeModels.BidItemValueShtansim>(rrrr);
+           
             //client type
-            _logger.Debug("client type");
+           _logger.Debug("client type");
             var clientTypeIdToGuid = new Dictionary<int, Guid>();
             var oldClientTypes = _oldContext.ClientTypes.ToList();
             for (int i = 0; i < oldClientTypes.Count(); i++)
@@ -229,6 +229,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldBidItemValueShtansim.Count(); i++)
             {
                 var item = oldBidItemValueShtansim[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 BidItemShtansimIdToGuid.Add(item.ID, newId);
                 var bidShtans = mapper.Map<Models.GoMakeModels.BidItemValueShtansim>(item);
@@ -244,6 +245,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldBidItemValues.Count(); i++)
             {
                 var item = oldBidItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 Guid? ShtansID = null;
                 BidItemIdToGuid.Add(item.ID, newId);
@@ -273,6 +275,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldEnvelopesItemValues.Count(); i++)
             {
                 var item = oldEnvelopesItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 envelopesItemIdToGuid.Add(item.ID, newId);
                 var envelope = mapper.Map<Models.GoMakeModels.PriceListsModels.EnvelopesItemValue>(item);
@@ -288,6 +291,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldBooksItemValues.Count(); i++)
             {
                 var item = oldBooksItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 bookItemIdToGuid.Add(item.ID, newId);
                 var book = mapper.Map<Models.GoMakeModels.PriceListsModels.BooksItemValue>(item);
@@ -303,6 +307,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldProductsItemValues.Count(); i++)
             {
                 var item = oldProductsItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 productItemIdToGuid.Add(item.ID, newId);
                 var product = mapper.Map<Models.GoMakeModels.PriceListsModels.ProductsItemValue>(item);
@@ -318,6 +323,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldPrintingItemValues.Count(); i++)
             {
                 var item = oldPrintingItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 printingItemIdToGuid.Add(item.ID, newId);
                 var printing = new Models.GoMakeModels.PriceListsModels.PrintingItemValue
@@ -343,6 +349,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldShelfProductsItemValues.Count(); i++)
             {
                 var item = oldShelfProductsItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 shelfItemIdToGuid.Add(item.ID, newId);
                 var shelf = mapper.Map<Models.GoMakeModels.PriceListsModels.ShelfProductsItemValue>(item);
@@ -358,6 +365,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldNotepadItemValues.Count(); i++)
             {
                 var item = oldNotepadItemValues[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 notepadItemIdToGuid.Add(item.ID, newId);
                 var notepad = mapper.Map<Models.GoMakeModels.PriceListsModels.NotepadItemValue>(item);
@@ -373,6 +381,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldContacts.Count(); i++)
             {
                 var item = oldContacts[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 var clientId = default(Guid);
                 clientIdToGuid.TryGetValue(item.ClientId, out clientId);
@@ -404,6 +413,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldAddresses.Count(); i++)
             {
                 var item = oldAddresses[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 var clientId = default(Guid);
                 clientIdToGuid.TryGetValue(item.ClientId, out clientId);
@@ -436,6 +446,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldQuotes.Count(); i++)
             {
                 var item = oldQuotes[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
 
                 var userId = default(Guid);
@@ -475,6 +486,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldMainProducts.Count(); i++)
             {
                 var item = oldMainProducts[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 MainProductIdToGuid.Add(item.ID, newId);
                 var main = new Models.GoMakeModels.Products.MainProduct
@@ -494,6 +506,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldBoards.Count(); i++)
             {
                 var item = oldBoards[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 BoardIDtoGuid.Add(item.ID, newId);
                 var board = new Models.GoMakeModels.Boards
@@ -514,6 +527,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldBoardColumns.Count(); i++)
             {
                 var item = oldBoardColumns[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 var boardId = default(Guid);
                 BoardIDtoGuid.TryGetValue(item.BoardID, out boardId);
@@ -539,6 +553,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldBoardRows.Count(); i++)
             {
                 var item = oldBoardRows[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 var boardId = default(Guid);
                 BoardIDtoGuid.TryGetValue(item.BoardID, out boardId);
@@ -563,6 +578,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldSubProducts.Count(); i++)
             {
                 var item = oldSubProducts[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 SubProductIdToGuid.Add(item.ID, newId);
                 var mainProductId = default(Guid);
@@ -618,6 +634,7 @@ namespace DfosTiraMigration.Controllers
             for(int i = 0; i < oldQuoteItems.Count(); i++)
             {
                 var item = oldQuoteItems[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 QuoteItemIdToGuid.Add(item.ID, newId);
                 var quoteID = default(Guid);
@@ -722,6 +739,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldOrders.Count(); i++)
             {
                 var item = oldOrders[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
 
                 var userId = default(Guid);
@@ -767,6 +785,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldOrderItems.Count(); i++)
             {
                 var item = oldOrderItems[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 OrderItemIdToGuid.Add(item.ID, newId);
                 var orderID = default(Guid);
@@ -885,6 +904,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldBoardMissions.Count(); i++)
             {
                 var item = oldBoardMissions[i];
+                _logger.Debug(item.ID);
                 var newId = Guid.NewGuid();
                 BoardMissionIdToGuid.Add(item.ID, newId);
                 var boardID = default(Guid);
@@ -1058,6 +1078,8 @@ namespace DfosTiraMigration.Controllers
              .ForMember(x => x.ID, opt => opt.Ignore())
              .ForMember(x => x.UserID, opt => opt.Ignore())
              .ForMember(x => x.CustomerID, opt => opt.Ignore())
+             .ForMember(x => x.ContactID, opt => opt.Ignore())
+                .ForMember(x => x.AddressID, opt => opt.Ignore())
              .AfterMap((src, dest) =>
              {
                  foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
@@ -1072,9 +1094,10 @@ namespace DfosTiraMigration.Controllers
              });
             cfg.CreateMap<DfosTiraMigration.Models.AwsModels.PriceListsModels.Quote, Models.GoMakeModels.PriceListsModels.Quote>()
             .ForMember(x => x.ID, opt => opt.Ignore())
-             .ForMember(x => x.ID, opt => opt.Ignore())
              .ForMember(x => x.UserID, opt => opt.Ignore())
              .ForMember(x => x.CustomerID, opt => opt.Ignore())
+                .ForMember(x => x.ContactID, opt => opt.Ignore())
+                .ForMember(x => x.AddressID, opt => opt.Ignore())
             .AfterMap((src, dest) =>
             {
                 foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
