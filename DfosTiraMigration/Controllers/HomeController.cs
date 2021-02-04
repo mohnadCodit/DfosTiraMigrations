@@ -38,7 +38,7 @@ namespace DfosTiraMigration.Controllers
             var _context = new GoMakeDbContext();
 
             IMapper mapper = ConfigMapper().CreateMapper();
-           
+         
             //client type
            _logger.Debug("client type");
             var clientTypeIdToGuid = new Dictionary<int, Guid>();
@@ -494,6 +494,7 @@ namespace DfosTiraMigration.Controllers
                     ID = newId,
                     Name = item.Name,
                     PrintHouseId = AwsPrintHouseId,
+                    Code = item.Code,
                 };
                 _context.MainProducts.Add(main);
             }
@@ -946,7 +947,6 @@ namespace DfosTiraMigration.Controllers
         private MapperConfiguration ConfigMapper()
         {
             var config = new MapperConfiguration(cfg => {
-
                 cfg.CreateMap<DfosTiraMigration.Models.AwsModels.PriceListsModels.DigitalItemValue, DfosTiraMigration.Models.GoMakeModels.PriceListsModels.DigitalItemValue>()
                 .ForMember(x => x.ID, opt => opt.Ignore())
                 .ForMember(x => x.SetsQuantity, opt => opt.Ignore())
@@ -1080,6 +1080,11 @@ namespace DfosTiraMigration.Controllers
              .ForMember(x => x.CustomerID, opt => opt.Ignore())
              .ForMember(x => x.ContactID, opt => opt.Ignore())
                 .ForMember(x => x.AddressID, opt => opt.Ignore())
+                  .ForMember(x => x.Client, opt => opt.Ignore())
+                 .ForMember(x => x.User, opt => opt.Ignore())
+                 .ForMember(x => x.Contact, opt => opt.Ignore())
+                 .ForMember(x => x.Address, opt => opt.Ignore())
+              
              .AfterMap((src, dest) =>
              {
                  foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
@@ -1098,6 +1103,12 @@ namespace DfosTiraMigration.Controllers
              .ForMember(x => x.CustomerID, opt => opt.Ignore())
                 .ForMember(x => x.ContactID, opt => opt.Ignore())
                 .ForMember(x => x.AddressID, opt => opt.Ignore())
+                .ForMember(x => x.Client, opt => opt.Ignore())
+                 .ForMember(x => x.User, opt => opt.Ignore())
+                 .ForMember(x => x.Contact, opt => opt.Ignore())
+                 .ForMember(x => x.PriceListItems, opt => opt.Ignore())
+                 .ForMember(x => x.Address, opt => opt.Ignore())
+                 .ForMember(x => x.QuotesLogs, opt => opt.Ignore())
             .AfterMap((src, dest) =>
             {
                 foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
