@@ -1,6 +1,7 @@
 ﻿using DfosTiraMigration.Models.AwsModels.PriceListsModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -55,8 +56,8 @@ namespace DfosTiraMigration.Models.AwsModels.Products
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubProductParameter> SubProductParameters { get; set; }
-
-        public virtual ProductsType ProductsType { get; set; }
+        
+        public virtual ProductsType ProductType { get; set; }
 
         public virtual Boards Board { get; set; }
 

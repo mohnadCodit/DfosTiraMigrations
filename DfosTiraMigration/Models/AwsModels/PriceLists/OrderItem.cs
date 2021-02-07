@@ -93,6 +93,7 @@ namespace DfosTiraMigration.Models.AwsModels.PriceListsModels
 
         public virtual PrintingItemValue PrintingPriceList { get; set; }
 
+        [ForeignKey("ProductID")]
         public virtual SubProduct SubProduct { get; set; }
 
         public virtual ProductsItemValue ProductsPriceList { get; set; }

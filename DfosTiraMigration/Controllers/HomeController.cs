@@ -36,11 +36,9 @@ namespace DfosTiraMigration.Controllers
             Guid AwsPrintHouseId = Guid.Parse("3E7C3DB0-BE3F-40BB-9FD8-3A5AE642A81E");
             var _oldContext = new Models.AwsModels.AwsDbContext();
             var _context = new GoMakeDbContext();
-
             IMapper mapper = ConfigMapper().CreateMapper();
-         
             //client type
-           _logger.Debug("client type");
+            _logger.Debug("client type");
             var clientTypeIdToGuid = new Dictionary<int, Guid>();
             var oldClientTypes = _oldContext.ClientTypes.ToList();
             for (int i = 0; i < oldClientTypes.Count(); i++)

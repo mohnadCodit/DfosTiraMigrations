@@ -31,7 +31,9 @@ namespace DfosTiraMigration.Models.AwsModels
 
         public virtual Boards Board { get; set; }
         public virtual OrderItem OrderItem { get; set; }
+        [ForeignKey("RowID")]
         public virtual BoardRows BoardRow { get; set; }
+        [ForeignKey("ColumnID")]
         public virtual BoardColumns BoardColumn { get; set; }
 
         [NotMapped]
