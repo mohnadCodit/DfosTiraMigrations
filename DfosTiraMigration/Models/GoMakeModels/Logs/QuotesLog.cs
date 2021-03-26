@@ -23,5 +23,9 @@ namespace DfosTiraMigration.Models.GoMakeModels.Logs
         public virtual User User { get; set; }
 
         public virtual Quote Quote { get; set; }
+
+        public int? DID { get; set; }
+
+        public Guid? PrintHouseId { get; set; }
     }
 }

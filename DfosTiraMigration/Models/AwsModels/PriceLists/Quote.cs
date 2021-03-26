@@ -59,7 +59,7 @@ namespace DfosTiraMigration.Models.AwsModels.PriceListsModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuotesLog> QuotesLogs { get; set; }
-
+     
         public virtual QuotesStatus Status { get; set; }
 
         public virtual User User { get; set; }
@@ -67,7 +67,6 @@ namespace DfosTiraMigration.Models.AwsModels.PriceListsModels
         public virtual Contact Contact { get; set; }
 
         public virtual Address Address { get; set; }
-
 
 
 

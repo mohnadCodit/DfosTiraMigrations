@@ -75,5 +75,6 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
         public bool isNeedSecondIntireColumns { get; set; }
         [NotMapped]
         public bool isNeedCovers { get; set; }
+        public int? DID { get; set; }
     }
 }

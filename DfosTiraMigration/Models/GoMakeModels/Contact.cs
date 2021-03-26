@@ -10,7 +10,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
     public class Contact
     {
         public Guid ID { get; set; }
-
+        public int? DID { get; set; }
         public Guid ClientId { get; set; }
 
         public int SapContactId { get; set; }

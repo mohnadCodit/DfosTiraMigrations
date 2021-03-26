@@ -23,7 +23,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
         }
 
         public Guid ID { get; set; }
-
+        public int? DID { get; set; }
         [Required]
         public string Name { get; set; }
 

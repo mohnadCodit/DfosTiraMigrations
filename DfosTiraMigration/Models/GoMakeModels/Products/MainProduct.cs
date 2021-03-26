@@ -21,7 +21,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.Products
         }
 
         public Guid ID { get; set; }
-
+        public int? DID { get; set; }
         [Required]
         public string Name { get; set; }
 
@@ -51,5 +51,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.Products
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MainProductSupplier> MainProductSuppliers { get; set; }
+
+
     }
 }

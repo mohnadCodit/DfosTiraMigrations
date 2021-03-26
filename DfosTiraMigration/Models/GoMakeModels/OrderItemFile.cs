@@ -8,7 +8,8 @@ namespace DfosTiraMigration.Models.GoMakeModels
     public class OrderItemFile
     {
         public Guid ID { get; set; }
-
+        
+        public int? DID { get; set; }
         public Guid OrderItemId { get; set; }
 
         public string FileName { get; set; }

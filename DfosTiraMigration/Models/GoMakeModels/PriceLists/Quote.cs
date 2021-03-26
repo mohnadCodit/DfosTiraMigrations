@@ -15,7 +15,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
             QuotesLogs = new HashSet<QuotesLog>();
             PriceListItems = new HashSet<QuoteItem>();
         }
-
+        public int? DID { get; set; }
         public Guid ID { get; set; }
 
         public Guid Key { get; set; }
@@ -73,7 +73,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
 
         public virtual Address Address { get; set; }
 
-
+    
 
 
     }

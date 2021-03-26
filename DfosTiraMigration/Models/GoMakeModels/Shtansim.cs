@@ -14,7 +14,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
-
+        public int? DID { get; set; }
         public int ShapeID { get; set; }
 
         public string RunningDirection { get; set; }

@@ -45,5 +45,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
         public virtual ICollection<BidMissionNote> BidMissionNotes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BoardMissionsLog> BoardMissionsLogs { get; set; }
+
+        public int? DID { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //[Key]
         public Guid ID { get; set; }
-
+        public int? DID { get; set; }
         public Guid OrderID { get; set; }
 
         public Guid ProductID { get; set; }

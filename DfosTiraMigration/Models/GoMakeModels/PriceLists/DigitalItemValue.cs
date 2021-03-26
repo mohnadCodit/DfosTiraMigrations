@@ -119,22 +119,22 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
         public double? ManualAdditionQuantity { get; set; }
 
         public bool WithoutCutting { get; set; }
-
+        public int? DID { get; set; }
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<OrderItem> OrderItems { get; set; }
 
-      //  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //  [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<QuoteItem> QuoteItems { get; set; }
 
-       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<ItemSpecialColor> ItemSpecialColors { get; set; }
 
-       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<Scodix> Scodixes { get; set; }
 
         ///[NotMapped]
         //public bool isNeedSpecialColors { get; set; }
         //[NotMapped]
-       // public bool isNeedScodix { get; set; }
+        // public bool isNeedScodix { get; set; }
     }
 }

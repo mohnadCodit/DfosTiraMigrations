@@ -20,6 +20,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
 
         public Guid ID { get; set; }
 
+        public int? DID { get; set; }
         [Required]
         [StringLength(50)]
         public string Username { get; set; }

@@ -43,11 +43,10 @@ namespace DfosTiraMigration.Models.GoMakeModels
         public string MailServicePassword { get; set; }
 
         public DateTime CreationDate { get; set; }
-        public Guid? MailProviderId { get; set; }
+       // public Guid? MailProviderId { get; set; }
 
         public Guid PrintHouseId { get; set; }
-        [ForeignKey("MailProviderId")]
-        public MailProvider MailProvider { get; set; }
+       
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
@@ -67,6 +66,6 @@ namespace DfosTiraMigration.Models.GoMakeModels
         [NotMapped]
         public virtual IEnumerable<Order> agentOrders { get; set; }
 
-
+        public int? DID { get; set; }
     }
 }

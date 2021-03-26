@@ -24,7 +24,7 @@ namespace DfosTiraMigration.Models.AwsModels.PriceListsModels
         public Order(Quote priceList, IMapper mapper)
         {
             Key = Guid.NewGuid();
-           // OrderItems = new HashSet<OrderItem>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         public int ID { get; set; }
@@ -68,14 +68,15 @@ namespace DfosTiraMigration.Models.AwsModels.PriceListsModels
         public string AccountingNumber { get; set; }
 
         public bool IsClosed { get; set; } = false;
-
+      
         // public int OrderDeliveryStatus_ID { get; set; }
         [ForeignKey("OrderDeliveryStatus")]
         public int DeliveryStatusId { get; set; } = 0;
         [ForeignKey("OrderDeliveryStatus")]
         public virtual OrderDeliveryStatus OrderDeliveryStatus { get; set; }
-        /* [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-         public virtual ICollection<OrderItem> OrderItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        /* 
 
          [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
          public virtual ICollection<OrdersTracking> OrdersTracking { get; set; }

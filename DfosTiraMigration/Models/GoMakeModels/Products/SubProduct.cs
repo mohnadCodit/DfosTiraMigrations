@@ -19,7 +19,8 @@ namespace DfosTiraMigration.Models.GoMakeModels.Products
         }
 
         public Guid ID { get; set; }
-
+        
+        public int? DID { get; set; }
         public string Name { get; set; }
 
         public Guid MainProductID { get; set; }

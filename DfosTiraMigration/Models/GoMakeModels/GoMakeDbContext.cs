@@ -138,8 +138,17 @@ namespace DfosTiraMigration.Models.GoMakeModels
         public virtual DbSet<PermissionsGroup> PermissionsGroups { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
-            /*modelBuilder.Entity<Client>()
+           /* modelBuilder.Entity<SubProduct>()
+             .HasMany(e => e.ProductsGroupsRelations)
+             .WithRequired(e => e.SubProduct)
+             .HasForeignKey(e => e.ProductID)
+             .WillCascadeOnDelete(false);
+            modelBuilder.Entity<ProductsGroup>()
+              .HasMany(e => e.ProductsGroupsRelations)
+              .WithRequired(e => e.ProductsGroup)
+              .HasForeignKey(e => e.GroupID)
+              .WillCascadeOnDelete(false);*/
+            modelBuilder.Entity<Client>()
                 .HasMany(e => e.MainProductSuppliers)
                 .WithRequired(e => e.Supplier)
                 .HasForeignKey(e => e.ClientId)
@@ -487,12 +496,7 @@ namespace DfosTiraMigration.Models.GoMakeModels
                 .HasForeignKey(e => e.CustomerId)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<DigitalItemValue>()
-                .HasMany(e => e.ItemSpecialColors)
-                .WithOptional(e => e.DigitalItemValue)
-                .HasForeignKey(e => e.DigitalPriceListID);*/
 
-          
             //
         }
 

@@ -41,5 +41,6 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuoteItem> QuoteItems { get; set; }
+        public int? DID { get; set; }
     }
 }

@@ -18,6 +18,8 @@ namespace DfosTiraMigration.Models.GoMakeModels.Logs
         public string Description { get; set; }
 
         public virtual User User { get; set; }
+        public int? DID { get; set; }
+        public Guid? PrintHouseId { get; set; }
 
     }
 }

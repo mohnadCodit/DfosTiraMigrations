@@ -33,5 +33,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.Logs
         public virtual User User { get; set; }
 
         public virtual BoardMissions BoardMission { get; set; }
+
+        public int? DID { get; set; }
     }
 }

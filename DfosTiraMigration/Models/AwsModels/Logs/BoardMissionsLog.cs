@@ -27,8 +27,6 @@ namespace DfosTiraMigration.Models.AwsModels.Logs
 
         public virtual User User { get; set; }
 
-        public virtual int LogType { get; set; }
-
         public virtual BoardMissions BoardMission { get; set; }
     }
 }

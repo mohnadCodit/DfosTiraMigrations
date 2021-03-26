@@ -41,5 +41,6 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
 
         [NotMapped]
         public bool isNeedSpecialColors { get; set; }
+        public int? DID { get; set; }
     }
 }

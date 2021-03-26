@@ -20,7 +20,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
         }
 
         public Guid ID { get; set; }
-
+        public int? DID { get; set; }
         public Guid QuoteID { get; set; }
 
         public Guid ProductID { get; set; }

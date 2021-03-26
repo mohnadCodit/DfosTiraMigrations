@@ -141,5 +141,6 @@ namespace DfosTiraMigration.Models.GoMakeModels
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IgnoredPricing> IgnoredPricing { get; set; }
+        public int? DID { get; set; }
     }
 }
