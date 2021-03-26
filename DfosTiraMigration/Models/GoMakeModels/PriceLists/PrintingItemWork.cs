@@ -10,7 +10,8 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
     public class PrintingItemWork
     {
         public Guid ID { get; set; }
-
+        
+        public int? DID { get; set; }
         public string WorkName { get; set; }
 
         [Required]

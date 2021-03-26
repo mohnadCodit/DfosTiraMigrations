@@ -18,14 +18,14 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
         {
             Key = Guid.NewGuid();
             OrdersLogs = new HashSet<OrdersLog>();
-            OrderItems = new HashSet<OrderItem>();
+            //OrderItems = new HashSet<OrderItem>();
             OrdersTracking = new HashSet<OrdersTracking>();
         }
 
         public Order(Quote priceList, IMapper mapper)
         {
             Key = Guid.NewGuid();
-            OrderItems = new HashSet<OrderItem>();
+            //OrderItems = new HashSet<OrderItem>();
         }
        
         public Guid ID { get; set; }
@@ -84,8 +84,8 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
        
         public virtual Employee Agent { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+       // [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<OrderItem> OrderItems { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTracking> OrdersTracking { get; set; }

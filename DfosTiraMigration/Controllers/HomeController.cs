@@ -407,54 +407,91 @@ namespace DfosTiraMigration.Controllers
                 var _oldContext = new Models.AwsModels.AwsDbContext();
                 var _context = new GoMakeDbContext();
                 IMapper mapper = ConfigMapper().CreateMapper();
-                _logger.Debug("start");
-                var oldClients = _oldContext.Clients.Where(x => x.ID >= 1853).AsNoTracking().ToList();
-                for (int i = 0; i < oldClients.Count(); i++)
+                //Contacts
+                _logger.Debug("Contacts");
+                var oldContacts = _oldContext.Contacts.AsNoTracking().ToList();
+                for (int i = 0; i < oldContacts.Count(); i++)
                 {
-                    var item = oldClients[i];
-                    if (_context.Clients.Any(x => x.DID == item.ID) == false)
+                    var item = oldContacts[i];
+                    if (_context.Contacts.Any(x => x.DID == item.ID) == false)
                     {
+                        _logger.Debug(item.ID);
                         var newId = Guid.NewGuid();
-                        var clientTypeId = default(Guid);
-                        clientTypeId = _context.ClientTypes.FirstOrDefault(x => x.DID == item.ClientTypeId).ID;
-                        _logger.Debug(oldClients[i].ID);
-                        Models.GoMakeModels.Client client = new Models.GoMakeModels.Client
+                        var clientId = default(Guid);
+                        var client = _context.Clients.FirstOrDefault(x => x.DID == item.ClientId);
+
+                        if (client != null)
                         {
-                            ID = newId,
-                            Code = oldClients[i].Code,
-                            ClientType = oldClients[i].ClientType,
-                            ClientTypeId = clientTypeId,
-                            Name = oldClients[i].Name,
-                            FName = oldClients[i].FName,
-                            BuisnessNumber = oldClients[i].BuisnessNumber,
-                            Tel1 = oldClients[i].Tel1,
-                            Tel2 = oldClients[i].Tel2,
-                            Phone = oldClients[i].Phone,
-                            Fax = oldClients[i].Fax,
-                            Mail = oldClients[i].Mail,
-                            InternetSite = oldClients[i].InternetSite,
-                            CreateDate = oldClients[i].CreateDate,
-                            UpdateDate = oldClients[i].UpdateDate,
-                            IsActive = oldClients[i].IsActive,
-                            IsInternal = oldClients[i].IsInternal,
-                            LastOrderContactName = oldClients[i].LastOrderContactName,
-                            LastOrderContactPhone = oldClients[i].LastOrderContactPhone,
-                            LastOrderContactMail = oldClients[i].LastOrderContactMail,
-                            LastOrderContactAddress = oldClients[i].LastOrderContactAddress,
-                            SapDocumentsTypeId = 0,
-                            IsOptionalClosingOrder = false,
-                            GeneralNotes = "",
-                            NewItemNotes = "",
-                            CloseOrderNotes = "",
-                            IsCreateOrder = true,
-                            PrintHouseId = AwsPrintHouseId,
-                            DID = item.ID,
-                        };
-                        _context.Clients.Add(client);
+                            clientId = client.ID;
+                            var contact = new Models.GoMakeModels.Contact
+                            {
+                                ID = newId,
+                                ClientId = clientId,
+                                SapContactId = item.SapContactId,
+                                FirstName = item.FirstName,
+                                LastName = item.LastName,
+                                Title = item.Title,
+                                Position = item.Position,
+                                Address = item.Address,
+                                Tel1 = item.Tel1,
+                                Tel2 = item.Tel2,
+                                Phone = item.Phone,
+                                Fax = item.Fax,
+                                Mail = item.Mail,
+                                DID = item.ID,
+                            };
+                            _context.Contacts.Add(contact);
+                        }
+
                     }
-                    
 
                 }
+
+                _logger.Debug("SaveChanges");
+                _context.SaveChanges();
+                //address
+                _logger.Debug("address");
+                // var AddressIDtoGuid = new Dictionary<int, Guid>();
+                var oldAddresses = _oldContext.Addresses.AsNoTracking().ToList();
+                for (int i = 0; i < oldAddresses.Count(); i++)
+                {
+                    var item = oldAddresses[i];
+                    if (_context.Addresses.Any(x => x.DID == item.ID) == false)
+                    {
+                        _logger.Debug(item.ID);
+                        var newId = Guid.NewGuid();
+                        var clientId = default(Guid);
+                        var client = _context.Clients.FirstOrDefault(x => x.DID == item.ClientId);
+                        if (client != null)
+                        {
+                            clientId = client.ID;
+                            var address = new Models.GoMakeModels.Address
+                            {
+                                ID = newId,
+                                ClientId = clientId,
+                                Address1 = item.Address1,
+                                Address2 = item.Address2,
+                                Address3 = item.Address3,
+                                Street = item.Street,
+                                StreetNumber = item.StreetNumber,
+                                Block = item.Block,
+                                City = item.City,
+                                ZIPCode = item.ZIPCode,
+                                County = item.County,
+                                State = item.State,
+                                Country = item.Country,
+                                AddressType = "S",
+                                DID = item.ID,
+                            };
+                            _context.Addresses.Add(address);
+                        }
+
+                    }
+
+                }
+
+
+
                 _logger.Debug("SaveChanges");
                 _context.SaveChanges();
                 _logger.Debug("end");
@@ -475,10 +512,10 @@ namespace DfosTiraMigration.Controllers
             
 
 
-            DateTime start = new DateTime(2021, 03, 25);
-            DateTime end = new DateTime(2021, 03, 24);
-            var orders = _oldContext.Orders.Where(x => x.CreationDate <= start && x.CreationDate >= end).Include(x=>x.OrderItems).AsEnumerable();
-            var quotes = _oldContext.Quotes.Where(x => x.CreationDate <= start && x.CreationDate >= end).Include(x=>x.PriceListItems).AsEnumerable();
+            DateTime start = new DateTime(2021, 03, 26);
+            DateTime end = new DateTime(2021, 03, 25);
+            var orders = _oldContext.Orders.Where(x => x.CreationDate <= start && x.CreationDate >= end).Take(10).Include(x=>x.OrderItems).AsEnumerable();
+            var quotes = _oldContext.Quotes.Where(x => x.CreationDate <= start && x.CreationDate >= end).Take(10).Include(x=>x.PriceListItems).AsEnumerable();
            
            var _oldOrderItems = _oldContext.OrderItems.Where(x => orders.Any(y=>y.ID == x.OrderID)).AsEnumerable();
             var _oldQuoteItems = _oldContext.QuoteItems.Where(x => quotes.Any(y => y.ID == x.QuoteID)).AsEnumerable();
@@ -589,6 +626,45 @@ namespace DfosTiraMigration.Controllers
                 }
                 
             }
+            _context.SaveChanges();
+            var oldBooksItemValuesQry = _oldContext.BooksItemValues.Where(x => _oldOrderItems.Any(y => y.BooksPriceListID == x.ID) || _oldQuoteItems.Any(y => y.BooksPriceListID == x.ID)).AsEnumerable();
+            _logger.Debug("Covers");
+            var oldCovers = _oldContext.Covers.Where(x=> oldBooksItemValuesQry.Any(y=>y.ID == x.BooksPriceListID)).AsNoTracking().ToList();
+            for (int i = 0; i < oldCovers.Count(); i++)
+            {
+                var item = oldCovers[i];
+                if (_context.Covers.Any(x => x.DID == item.ID) == false)
+                {
+                    _logger.Debug(item.ID);
+                    var newId = Guid.NewGuid();
+                    var bookId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.BooksPriceListID).ID;
+                    var cover = mapper.Map<Models.GoMakeModels.PriceListsModels.Cover>(item);
+                    cover.ID = newId;
+                    cover.BooksPriceListID = bookId;
+                    cover.DID = item.ID;
+                    _context.Covers.Add(cover);
+                }
+
+            }
+
+            _logger.Debug("IntireColumns");
+            var oldIntireColumns = _oldContext.IntireColumns.Where(x => oldBooksItemValuesQry.Any(y => y.ID == x.BooksPriceListID)).AsNoTracking().ToList();
+            for (int i = 0; i < oldCovers.Count(); i++)
+            {
+                var item = oldIntireColumns[i];
+                if (_context.IntireColumns.Any(x => x.DID == item.ID) == false)
+                {
+                    _logger.Debug(item.ID);
+                    var newId = Guid.NewGuid();
+                    var bookId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.BooksPriceListID).ID;
+                    var cover = mapper.Map<Models.GoMakeModels.PriceListsModels.IntireColumn>(item);
+                    cover.ID = newId;
+                    cover.BooksPriceListID = bookId;
+                    cover.DID = item.ID;
+                    _context.IntireColumns.Add(cover);
+                }
+
+            }
 
             //ProductsItemValues
             _logger.Debug("ProductsItemValues");
@@ -635,6 +711,35 @@ namespace DfosTiraMigration.Controllers
                 }
                     
             }
+            _context.SaveChanges();
+            var oldPrintingItemValueQry = _oldContext.PrintingItemValues.Where(x => _oldOrderItems.Any(y => y.PrintingPriceListID == x.ID) || _oldQuoteItems.Any(y => y.PrintingPriceListID == x.ID)).AsEnumerable();
+            //PrintingItemValues
+            _logger.Debug("PrintingItemWorks");
+            var oldPrintingItemWorks = _oldContext.PrintingItemWorks.Where(x => oldPrintingItemValueQry.Any(y => y.ID == x.PrintingPriceListID)).AsNoTracking().ToList();
+            for (int i = 0; i < oldPrintingItemWorks.Count(); i++)
+            {
+                var item = oldPrintingItemWorks[i];
+                if (_context.PrintingItemWorks.Any(x => x.DID == item.ID) == false)
+                {
+                    _logger.Debug(item.ID);
+                    var newId = Guid.NewGuid();
+                    var PrintingPriceListID = _context.PrintingItemValues.FirstOrDefault(x => x.DID == item.PrintingPriceListID).ID;
+                    var printing = new Models.GoMakeModels.PriceListsModels.PrintingItemWork
+                    {
+                        ID = newId,
+                        WorkName = item.WorkName,
+                        Quantity = item.Quantity,
+                        Width = item.Width,
+                        Height = item.Height,
+                        DID = item.ID,
+                        PrintingPriceListID = PrintingPriceListID
+                    };
+                    printing.ID = newId;
+                    printing.DID = item.ID;
+                    _context.PrintingItemWorks.Add(printing);
+                }
+
+            }
 
             //ShelfProductsItemValues
             _logger.Debug("ShelfProductsItemValues");
@@ -662,7 +767,7 @@ namespace DfosTiraMigration.Controllers
             for (int i = 0; i < oldNotepadItemValues.Count(); i++)
             {
                 var item = oldNotepadItemValues[i];
-                if (_context.ShelfProductsItemValues.Any(x => x.DID == item.ID) == false)
+                if (_context.NotepadItemValues.Any(x => x.DID == item.ID) == false)
                 {
                     _logger.Debug(item.ID);
                     var newId = Guid.NewGuid();
@@ -674,87 +779,7 @@ namespace DfosTiraMigration.Controllers
                    
             }
 
-            //Contacts
-            _logger.Debug("Contacts");
-            var oldContacts = _oldContext.Contacts.Where(x => orders.Any(y => y.Client.Contacts.Any(z => z.ID == x.ID)) || quotes.Any(y => y.Client.Contacts.Any(z => z.ID == x.ID))).AsNoTracking().ToList();
-            for(int i = 0; i < oldContacts.Count(); i++)
-            {
-                var item = oldContacts[i];
-                if (_context.Contacts.Any(x => x.DID == item.ID) == false)
-                {
-                    _logger.Debug(item.ID);
-                    var newId = Guid.NewGuid();
-                    var clientId = default(Guid);
-                    var client = _context.Clients.FirstOrDefault(x => x.DID == item.ClientId);
-                 
-                    if(client != null)
-                    {
-                        clientId = client.ID;
-                        var contact = new Models.GoMakeModels.Contact
-                        {
-                            ID = newId,
-                            ClientId = clientId,
-                            SapContactId = item.SapContactId,
-                            FirstName = item.FirstName,
-                            LastName = item.LastName,
-                            Title = item.Title,
-                            Position = item.Position,
-                            Address = item.Address,
-                            Tel1 = item.Tel1,
-                            Tel2 = item.Tel2,
-                            Phone = item.Phone,
-                            Fax = item.Fax,
-                            Mail = item.Mail,
-                            DID = item.ID,
-                        };
-                        _context.Contacts.Add(contact);
-                    }
-                    
-                }
-                    
-            }
-         
-
-            //address
-            _logger.Debug("address");
-           // var AddressIDtoGuid = new Dictionary<int, Guid>();
-            var oldAddresses = _oldContext.Addresses.Where(x => orders.Any(y => y.Client.Addresses.Any(z => z.ID == x.ID)) || quotes.Any(y => y.Client.Addresses.Any(z => z.ID == x.ID))).AsNoTracking().ToList();
-            for (int i = 0; i < oldAddresses.Count(); i++)
-            {
-                var item = oldAddresses[i];
-                if (_context.Addresses.Any(x => x.DID == item.ID) == false)
-                {
-                    _logger.Debug(item.ID);
-                    var newId = Guid.NewGuid();
-                    var clientId = default(Guid);
-                    var client = _context.Clients.FirstOrDefault(x => x.DID == item.ClientId);
-                    if(client != null)
-                    {
-                        clientId = client.ID;
-                        var address = new Models.GoMakeModels.Address
-                        {
-                            ID = newId,
-                            ClientId = clientId,
-                            Address1 = item.Address1,
-                            Address2 = item.Address2,
-                            Address3 = item.Address3,
-                            Street = item.Street,
-                            StreetNumber = item.StreetNumber,
-                            Block = item.Block,
-                            City = item.City,
-                            ZIPCode = item.ZIPCode,
-                            County = item.County,
-                            State = item.State,
-                            Country = item.Country,
-                            AddressType = "S",
-                            DID = item.ID,
-                        };
-                        _context.Addresses.Add(address);
-                    }
-                    
-                }
-                    
-            }
+           
          
             //quotes
             _logger.Debug("quotes");
@@ -792,11 +817,68 @@ namespace DfosTiraMigration.Controllers
                     quote.PrintHouseId = AwsPrintHouseId;
                     quote.DID = item.ID;
                     _context.Quotes.Add(quote);
-                    this.MoveQuotesItems(item.PriceListItems, quote.ID);
+                 
                 }
                   
             }
-    
+            _context.SaveChanges();
+
+            _logger.Debug("QuoteItems");
+            var oldQuoteItems = _oldContext.QuoteItems.Where(x => quotes.Any(y => y.ID == x.QuoteID)).AsNoTracking().ToList();
+            for (int i = 0; i < oldQuoteItems.Count(); i++)
+            {
+                var item = oldQuoteItems[i];
+                if (_context.QuoteItems.Any(x => x.DID == item.ID) == false)
+                {
+                    _logger.Debug(item.ID);
+                    var newId = Guid.NewGuid();
+
+                    var quoteID = _context.Quotes.FirstOrDefault(x=>x.DID == item.QuoteID).ID;
+                    var mainProductId = default(Guid);
+                    Guid? forItemId = _context.QuoteItems.FirstOrDefault(x => x.DID == item.ForItemID)?.ID;
+                    mainProductId = _context.SubProducts.FirstOrDefault(x => x.DID == item.ProductID).ID;
+
+                    Guid? digialId = _context.DigitalItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? bidId = _context.BidItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? envId = _context.EnvelopesItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? notepadId = _context.NotepadItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? booksId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? productId = _context.ProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? printingId = _context.PrintingItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? shelfId = _context.ShelfProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+
+
+                    var quoteItem = new Models.GoMakeModels.PriceListsModels.QuoteItem
+                    {
+                        ID = newId,
+                        QuoteID = quoteID,
+                        ProductID = mainProductId,
+                        Quantity = item.Quantity,
+                        FinalPrice = item.FinalPrice,
+                        Price = item.Price,
+                        DigitalPriceListID = digialId,
+                        BidPriceListID = bidId,
+                        EnvelopesPriceListID = envId,
+                        NotepadPriceListID = notepadId,
+                        BooksPriceListID = booksId,
+                        ProductsPriceListID = productId,
+                        PrintingPriceListID = printingId,
+                        ShelfProductsPriceListID = shelfId,
+                        MissionNumber = item.MissionNumber,
+                        discount = item.discount,
+                        ForItemID = forItemId,
+                        Content = item.Content,
+                        PrintingNotes = item.PrintingNotes,
+                        GraphicNotes = item.GraphicNotes,
+                        WorkName = item.WorkName,
+                        IsNeedGraphics = item.IsNeedGraphics,
+                        IsOO = item.IsOO,
+                        DID = item.ID
+                    };
+                    _context.QuoteItems.Add(quoteItem);
+                }
+
+            }
             //orders
             _logger.Debug("orders");
             var oldOrders = orders.ToList();
@@ -823,15 +905,71 @@ namespace DfosTiraMigration.Controllers
                     order.PrintHouseId = AwsPrintHouseId;
                     order.DID = item.ID;
                     _context.Orders.Add(order);
-                    this.MoveOrdersItems(item.OrderItems, order.ID);
+                 
                 }
                     
             }
+            _context.SaveChanges();
+            //orderItems
+            _logger.Debug("orderItems");
+            var oldOrderItems = _oldContext.OrderItems.Where(x => orders.Any(y => y.ID == x.OrderID)).AsNoTracking().ToList();
+            for (int i = 0; i < oldOrderItems.Count(); i++)
+            {
+                var item = oldOrderItems[i];
+                if (_context.OrderItems.Any(x => x.DID == item.ID) == false)
+                {
+                    _logger.Debug(item.ID);
+                    var newId = Guid.NewGuid();
+                    var orderID = _context.Orders.FirstOrDefault(x=>x.DID == item.OrderID).ID;
+                    var SUBProductId = _context.SubProducts.FirstOrDefault(x => x.DID == item.ProductID).ID;
+                    Guid? forItemId = _context.OrderItems.FirstOrDefault(x => x.DID == item.ForItemID)?.ID; ;
 
-            
+                    Guid? digialId = _context.DigitalItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? bidId = _context.BidItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? envId = _context.EnvelopesItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? notepadId = _context.NotepadItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? booksId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? productId = _context.ProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? printingId = _context.PrintingItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
+                    Guid? shelfId = _context.ShelfProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
 
+
+
+                    var orderItem = new Models.GoMakeModels.PriceListsModels.OrderItem
+                    {
+                        ID = newId,
+                        OrderID = orderID,
+                        ProductID = SUBProductId,
+                        Quantity = item.Quantity,
+                        FinalPrice = item.FinalPrice,
+                        Price = item.Price,
+                        DigitalPriceListID = digialId,
+                        BidPriceListID = bidId,
+                        EnvelopesPriceListID = envId,
+                        NotepadPriceListID = notepadId,
+                        BooksPriceListID = booksId,
+                        ProductsPriceListID = productId,
+                        PrintingPriceListID = printingId,
+                        ShelfProductsPriceListID = shelfId,
+                        MissionNumber = item.MissionNumber,
+                        discount = item.discount,
+                        ForItemID = forItemId,
+                        Content = item.Content,
+                        PrintingNotes = item.PrintingNotes,
+                        GraphicNotes = item.GraphicNotes,
+                        WorkName = item.WorkName,
+                        IsNeedGraphics = item.IsNeedGraphics,
+                        IsOO = item.IsOO,
+                        DID = item.ID
+                    };
+
+                    _context.OrderItems.Add(orderItem);
+                }
+
+            }
+            _context.SaveChanges();
             //board missions
-             _logger.Debug("board missions");
+            _logger.Debug("board missions");
             var BoardMissionIdToGuid = new Dictionary<int, Guid>();
             var bordmiss = _oldContext.BoardMissions.Where(x => _oldOrderItems.Any(y => y.ID == x.OrderItemID)).AsEnumerable();
             var oldBoardMissions = bordmiss.ToList();
@@ -872,6 +1010,8 @@ namespace DfosTiraMigration.Controllers
                   
                     
             }
+            _context.SaveChanges();
+
 
             //board missions
             /*  _logger.Debug("GeneralUsersLogs");
@@ -1019,137 +1159,6 @@ namespace DfosTiraMigration.Controllers
             _context.SaveChanges();
             _logger.Debug("the end :)");
         }
-
-        public void MoveQuotesItems(ICollection<Models.AwsModels.PriceListsModels.QuoteItem> _oldQuoteItems,Guid id)
-        {
-            Guid AwsPrintHouseId = Guid.Parse("B722CB5C-B7EF-408D-BA0E-0FD3997ABA2B");
-            var _oldContext = new Models.AwsModels.AwsDbContext();
-            var _context = new GoMakeDbContext();
-            IMapper mapper = ConfigMapper().CreateMapper();
-            //quotesItems
-            _logger.Debug("quotesItems");
-            var oldQuoteItems = _oldQuoteItems.ToList();
-            for (int i = 0; i < oldQuoteItems.Count(); i++)
-            {
-                var item = oldQuoteItems[i];
-                if (_context.QuoteItems.Any(x => x.DID == item.ID) == false)
-                {
-                    _logger.Debug(item.ID);
-                    var newId = Guid.NewGuid();
-
-                    var quoteID = id;
-                    var mainProductId = default(Guid);
-                    Guid? forItemId = _context.QuoteItems.FirstOrDefault(x => x.DID == item.ForItemID)?.ID;
-                    mainProductId = _context.SubProducts.FirstOrDefault(x => x.DID == item.ProductID).ID;
-
-                    Guid? digialId = _context.DigitalItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? bidId = _context.BidItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? envId = _context.EnvelopesItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? notepadId = _context.NotepadItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? booksId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? productId = _context.ProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? printingId = _context.PrintingItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? shelfId = _context.ShelfProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-
-
-                    var quoteItem = new Models.GoMakeModels.PriceListsModels.QuoteItem
-                    {
-                        ID = newId,
-                        QuoteID = quoteID,
-                        ProductID = mainProductId,
-                        Quantity = item.Quantity,
-                        FinalPrice = item.FinalPrice,
-                        Price = item.Price,
-                        DigitalPriceListID = digialId,
-                        BidPriceListID = bidId,
-                        EnvelopesPriceListID = envId,
-                        NotepadPriceListID = notepadId,
-                        BooksPriceListID = booksId,
-                        ProductsPriceListID = productId,
-                        PrintingPriceListID = printingId,
-                        ShelfProductsPriceListID = shelfId,
-                        MissionNumber = item.MissionNumber,
-                        discount = item.discount,
-                        ForItemID = forItemId,
-                        Content = item.Content,
-                        PrintingNotes = item.PrintingNotes,
-                        GraphicNotes = item.GraphicNotes,
-                        WorkName = item.WorkName,
-                        IsNeedGraphics = item.IsNeedGraphics,
-                        IsOO = item.IsOO,
-                        DID = item.ID
-                    };
-                    _context.QuoteItems.Add(quoteItem);
-                }
-
-            }
-        }
-
-        public void MoveOrdersItems(ICollection<Models.AwsModels.PriceListsModels.OrderItem> _oldOrderItems, Guid id)
-        {
-            Guid AwsPrintHouseId = Guid.Parse("B722CB5C-B7EF-408D-BA0E-0FD3997ABA2B");
-            var _oldContext = new Models.AwsModels.AwsDbContext();
-            var _context = new GoMakeDbContext();
-            IMapper mapper = ConfigMapper().CreateMapper();
-            //orderItems
-            _logger.Debug("orderItems");
-            var oldOrderItems = _oldOrderItems.ToList();
-            for (int i = 0; i < oldOrderItems.Count(); i++)
-            {
-                var item = oldOrderItems[i];
-                if (_context.OrderItems.Any(x => x.DID == item.ID) == false)
-                {
-                    _logger.Debug(item.ID);
-                    var newId = Guid.NewGuid();
-                    var orderID = id;
-                    var SUBProductId = _context.SubProducts.FirstOrDefault(x => x.DID == item.ProductID).ID;
-                    Guid? forItemId = _context.OrderItems.FirstOrDefault(x => x.DID == item.ForItemID).ID; ;
-
-                    Guid? digialId = _context.DigitalItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? bidId = _context.BidItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? envId = _context.EnvelopesItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? notepadId = _context.NotepadItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? booksId = _context.BooksItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? productId = _context.ProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? printingId = _context.PrintingItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-                    Guid? shelfId = _context.ShelfProductsItemValues.FirstOrDefault(x => x.DID == item.DigitalPriceListID)?.ID;
-
-
-
-                    var orderItem = new Models.GoMakeModels.PriceListsModels.OrderItem
-                    {
-                        ID = newId,
-                        OrderID = orderID,
-                        ProductID = SUBProductId,
-                        Quantity = item.Quantity,
-                        FinalPrice = item.FinalPrice,
-                        Price = item.Price,
-                        DigitalPriceListID = digialId,
-                        BidPriceListID = bidId,
-                        EnvelopesPriceListID = envId,
-                        NotepadPriceListID = notepadId,
-                        BooksPriceListID = booksId,
-                        ProductsPriceListID = productId,
-                        PrintingPriceListID = printingId,
-                        ShelfProductsPriceListID = shelfId,
-                        MissionNumber = item.MissionNumber,
-                        discount = item.discount,
-                        ForItemID = forItemId,
-                        Content = item.Content,
-                        PrintingNotes = item.PrintingNotes,
-                        GraphicNotes = item.GraphicNotes,
-                        WorkName = item.WorkName,
-                        IsNeedGraphics = item.IsNeedGraphics,
-                        IsOO = item.IsOO,
-                        DID = item.ID
-                    };
-
-                    _context.OrderItems.Add(orderItem);
-                }
-
-            }
-
-        }
         private MapperConfiguration ConfigMapper()
         {
             var config = new MapperConfiguration(cfg => {
@@ -1228,6 +1237,36 @@ namespace DfosTiraMigration.Controllers
                            propertyInfo.SetValue(dest, "");
                    }
                });
+                cfg.CreateMap<DfosTiraMigration.Models.AwsModels.PriceListsModels.Cover, Models.GoMakeModels.PriceListsModels.Cover>()
+            .ForMember(x => x.ID, opt => opt.Ignore())
+             .ForMember(x => x.BooksPriceListID, opt => opt.Ignore())
+            .AfterMap((src, dest) =>
+            {
+                foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
+                {
+                    if (propertyInfo.PropertyType == typeof(int) && propertyInfo.GetValue(dest) == null)
+                        propertyInfo.SetValue(dest, 0);
+                    if (propertyInfo.PropertyType == typeof(double) && propertyInfo.GetValue(dest) == null)
+                        propertyInfo.SetValue(dest, 0);
+                    if (propertyInfo.PropertyType == typeof(string) && propertyInfo.GetValue(dest) == null)
+                        propertyInfo.SetValue(dest, "");
+                }
+            });
+                cfg.CreateMap<DfosTiraMigration.Models.AwsModels.PriceListsModels.IntireColumn, Models.GoMakeModels.PriceListsModels.IntireColumn>()
+           .ForMember(x => x.ID, opt => opt.Ignore())
+            .ForMember(x => x.BooksPriceListID, opt => opt.Ignore())
+           .AfterMap((src, dest) =>
+           {
+               foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
+               {
+                   if (propertyInfo.PropertyType == typeof(int) && propertyInfo.GetValue(dest) == null)
+                       propertyInfo.SetValue(dest, 0);
+                   if (propertyInfo.PropertyType == typeof(double) && propertyInfo.GetValue(dest) == null)
+                       propertyInfo.SetValue(dest, 0);
+                   if (propertyInfo.PropertyType == typeof(string) && propertyInfo.GetValue(dest) == null)
+                       propertyInfo.SetValue(dest, "");
+               }
+           });
                 cfg.CreateMap<DfosTiraMigration.Models.AwsModels.PriceListsModels.ProductsItemValue, Models.GoMakeModels.PriceListsModels.ProductsItemValue>()
               .ForMember(x => x.ID, opt => opt.Ignore()).AfterMap((src, dest) =>
               {
@@ -1290,7 +1329,7 @@ namespace DfosTiraMigration.Controllers
                  .ForMember(x => x.User, opt => opt.Ignore())
                  .ForMember(x => x.Contact, opt => opt.Ignore())
                  .ForMember(x => x.Address, opt => opt.Ignore())
-              
+             
              .AfterMap((src, dest) =>
              {
                  foreach (PropertyInfo propertyInfo in dest.GetType().GetProperties())
@@ -1303,6 +1342,7 @@ namespace DfosTiraMigration.Controllers
                          propertyInfo.SetValue(dest, "");
                  }
              });
+             
                 cfg.CreateMap<DfosTiraMigration.Models.AwsModels.Shtansim, Models.GoMakeModels.Shtansim>()
                 .ForMember(x => x.ID, opt => opt.Ignore())
                 .ForMember(x => x.ImageID, opt => opt.Ignore());

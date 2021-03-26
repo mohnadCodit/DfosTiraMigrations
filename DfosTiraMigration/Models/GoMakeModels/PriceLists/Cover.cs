@@ -19,6 +19,7 @@ namespace DfosTiraMigration.Models.GoMakeModels.PriceListsModels
 
         public Guid ID { get; set; }
 
+        public int DID { get; set; }
         public string Side { get; set; }
 
         public string Color { get; set; }
