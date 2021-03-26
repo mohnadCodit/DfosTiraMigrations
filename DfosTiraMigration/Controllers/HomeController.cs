@@ -665,7 +665,6 @@ namespace DfosTiraMigration.Controllers
                 }
 
             }
-
             //ProductsItemValues
             _logger.Debug("ProductsItemValues");
             var oldProductsItemValues = _oldContext.ProductsItemValues.Where(x => _oldOrderItems.Any(y => y.ProductsPriceListID == x.ID) || _oldQuoteItems.Any(y => y.ProductsPriceListID == x.ID)).AsNoTracking().ToList();
